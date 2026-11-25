@@ -2341,3 +2341,16 @@ dialog.pc3d-big .desk-3d-side.pc3d-side { flex: 0 0 340px; padding: 16px; scroll
   .header-main > div:last-child > .order-btn,
   .header-main > div:last-child > button { width: 38px; height: 38px; }
 }
+
+/* touch targets of at least 24×24px (the small controls): the look stays the same, the area you can tap grows */
+.st-dots { padding: 0 10px; }
+.st-dots button { height: 24px; background: linear-gradient(rgba(255,255,255,.45), rgba(255,255,255,.45)) center / 100% 6px no-repeat; }
+.st-dots button[aria-current="true"] { background: linear-gradient(#fff, #fff) center / 100% 6px no-repeat; }
+.st-dots .st-pause { min-width: 24px; min-height: 24px; display: inline-grid; place-items: center; }
+.side-more { min-height: 32px; padding-block: 4px; }
+.hw-title a { display: inline-block; padding-block: 3px; }
+.crumbs a { display: inline-block; padding-block: 2px; }
+/* the order count pulses when a product is added (not for people who asked for less motion) */
+@keyframes order-bump { 0% { transform: scale(1); } 40% { transform: scale(1.45); } 100% { transform: scale(1); } }
+.order-count.is-bump { animation: order-bump .5s var(--ease-out, ease-out); }
+@media (prefers-reduced-motion: reduce) { .order-count.is-bump { animation: none; } }
