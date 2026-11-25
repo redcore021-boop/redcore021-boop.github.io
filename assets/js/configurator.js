@@ -1,6 +1,26 @@
 // RedCore — PC configurator with compatibility checks.
 // Data lives in components.js. Every candidate part is checked against the parts already selected;
 // incompatible parts are disabled with a specific reason, and parts invalidated by a later change are removed.
+// A shared build: build?b=<code> (the "שיתוף ההרכבה" button makes it). The code is the build as the browser saves it
+// (parts, fan kinds and places) plus the 3D lighting, as base64url JSON. Nothing personal is in it.
+window.RCShareCode = {
+  encode: (obj) => btoa(unescape(encodeURIComponent(JSON.stringify(obj)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''),
+  decode: (code) => {
+    try {
+      const b64 = String(code).replace(/-/g, '+').replace(/_/g, '/');
+      const obj = JSON.parse(decodeURIComponent(escape(atob(b64 + '==='.slice((b64.length + 3) % 4)))));
+      return obj && typeof obj === 'object' && !Array.isArray(obj) ? obj : null;
+    } catch { return null; }
+  },
+};
+const RC_SHARED = (() => { const c = new URLSearchParams(location.search).get('b'); return c ? window.RCShareCode.decode(c) : null; })();
+if (RC_SHARED) {
+  try {
+    if (/^#[0-9a-f]{6}$/i.test(RC_SHARED.rgb || '')) localStorage.setItem('rc-pc3d-rgb', RC_SHARED.rgb);
+    if (/^[a-z]{3,12}$/.test(RC_SHARED.mode || '')) localStorage.setItem('rc-pc3d-mode', RC_SHARED.mode);
+  } catch { /* storage blocked: the 3D keeps its default lighting */ }
+}
+
 // waits for the live parts from the server (parts-live.js), then starts
 (window.RC_LIVE || Promise.resolve()).then(() => {
   const root = document.getElementById('configurator');
@@ -285,10 +305,12 @@
 
   // ---------- Persistence (per visitor; optional) ----------
   const KEY = 'rc-build';
-  const saveSel = () => { try { localStorage.setItem(KEY, JSON.stringify({ ...Object.fromEntries(Object.entries(sel).map(([k, p]) => [k, p.id])), ...(fanLines.length ? { fansLines: fanLines.map((L) => ({ id: L.part.id, packs: L.packs, plan: L.plan })) } : {}) })); } catch { /* storage blocked */ } };
-  const loadSel = () => {
+  const state = () => ({ ...Object.fromEntries(Object.entries(sel).map(([k, p]) => [k, p.id])), ...(fanLines.length ? { fansLines: fanLines.map((L) => ({ id: L.part.id, packs: L.packs, plan: L.plan })) } : {}) });
+  const saveSel = () => { try { localStorage.setItem(KEY, JSON.stringify(state())); } catch { /* storage blocked */ } };
+  const loadSel = (from) => {
     try {
-      const saved = JSON.parse(localStorage.getItem(KEY)) || {};
+      const saved = from || JSON.parse(localStorage.getItem(KEY)) || {};
+      if (from) { ALL.forEach(({ key }) => delete sel[key]); }
       ALL.forEach(({ key }) => { const p = saved[key] && byId(key, saved[key]); if (p) sel[key] = p; });
       fanLines = [];
       const cleanPlan = (sp) => { const o = {}; if (sp && typeof sp === 'object') FAN_POS.forEach((q) => { const v = Math.max(0, Math.min(20, Math.floor(Number(sp[q]) || 0))); if (v) o[q] = v; }); return o; };
@@ -312,6 +334,26 @@
     STEPS.forEach(({ key }) => { sel[key] = byId(key, pr.parts[key]); });
     prune();
     return true;
+  };
+
+  /** The link to this build: opens the builder with the same parts, fans and lighting. */
+  const shareUrl = () => {
+    let light = {};
+    try { light = { rgb: localStorage.getItem('rc-pc3d-rgb') || undefined, mode: localStorage.getItem('rc-pc3d-mode') || undefined }; } catch { /* none */ }
+    const base = (window.top !== window && (() => { try { return window.top.location.origin; } catch { return ''; } })()) || location.origin;
+    return `${base}/build?b=${window.RCShareCode.encode({ v: 1, ...state(), ...light })}`;
+  };
+  // after "copied": the button says so for a moment
+  const flash = (btn, text) => {
+    const label = btn.querySelector('[data-share-label]');
+    if (!label) return;
+    const was = label.dataset.was || label.textContent; label.dataset.was = was; label.textContent = text;
+    clearTimeout(btn._t); btn._t = setTimeout(() => { label.textContent = was; }, 2200);
+  };
+  const copyLink = async (btn, url) => {
+    try { await navigator.clipboard.writeText(url); flash(btn, 'הקישור הועתק'); return; } catch { /* no clipboard: show it to copy by hand */ }
+    const box = root.querySelector('[data-share-box]');
+    if (box) { box.hidden = false; const inp = box.querySelector('input'); inp.value = url; inp.focus(); inp.select(); }
   };
 
   // ---------- Rendering ----------
@@ -441,6 +483,14 @@
       <div class="cfg-total"><span>עלות מפרט <span class="vat-note">כולל מע״מ</span></span><strong class="tabular">${shekel(total)}</strong></div>
       <button type="button" class="btn btn-primary w-full" data-send ${complete ? '' : 'disabled aria-describedby="cfgSendHelp"'}>${icon('i-whatsapp')}שליחת המפרט להצעת מחיר</button>
       <p id="cfgSendHelp" class="text-xs text-muted text-center mt-2">${complete ? 'נבדוק זמינות ונחזור אליכם עם מחיר סופי.' : `נשארו ${STEPS.length - chosenHw.length} רכיבי חובה לבחירה`}</p>
+      <div class="cfg-share">
+        <button type="button" class="btn btn-ghost" data-share ${chosenHw.length + chosenEx.length ? '' : 'disabled'}>${icon('i-share', 'w-4 h-4')}<span data-share-label>שיתוף ההרכבה</span></button>
+        <button type="button" class="btn btn-ghost cfg-share-wa" data-share-wa ${chosenHw.length + chosenEx.length ? '' : 'disabled'} aria-label="שליחת ההרכבה לחבר בוואטסאפ">${icon('i-whatsapp', 'w-5 h-5')}</button>
+      </div>
+      <div class="cfg-share-box" data-share-box hidden>
+        <label for="cfgShareUrl" class="text-xs text-muted">העתיקו את הקישור:</label>
+        <input id="cfgShareUrl" class="input" readonly dir="ltr">
+      </div>
       <button type="button" class="cfg-reset" data-reset>איפוס המפרט</button>
       <ul class="cfg-trust">
         <li>${icon('i-clock', 'w-4 h-4')}זמן הרכבה: 3–7 ימי עסקים</li>
@@ -653,9 +703,27 @@
       return;
     }
 
+    const shareBtn = e.target.closest('[data-share]');
+    if (shareBtn && !shareBtn.disabled) {
+      const url = shareUrl();
+      const total = root.querySelector('.cfg-total strong')?.textContent || '';
+      // phones: the system share sheet (WhatsApp, Messages…); computers: copy the link
+      if (navigator.share && matchMedia('(pointer: coarse)').matches) {
+        navigator.share({ title: 'המחשב שבניתי ב-RedCore', text: `המחשב שבניתי ב-RedCore (${total}):`, url }).catch(() => {});
+      } else copyLink(shareBtn, url);
+      return;
+    }
+    const waBtn = e.target.closest('[data-share-wa]');
+    if (waBtn && !waBtn.disabled) {
+      const total = root.querySelector('.cfg-total strong')?.textContent || '';
+      window.open(`https://wa.me/?text=${encodeURIComponent(`תראו את המחשב שבניתי ב-RedCore (${total}):\n${shareUrl()}`)}`, '_blank', 'noopener');
+      return;
+    }
+
     if (e.target.closest('[data-send]')) {
       // Sent through the shared order form (order.js): consent to terms + privacy before anything leaves the page
       const lines = [...STEPS, ...EXTRAS].filter(({ key }) => sel[key]).map(({ key, label }) => [label, nameOf(key)]);
+      lines.push(['קישור להרכבה', shareUrl()]);
       window.RCOrder.open({ title: 'מחשב בהרכבה אישית – בקשה להצעת מחיר', lines, total: root.querySelector('.cfg-total strong').textContent, totalLabel: 'עלות מפרט משוערת' });
     }
   });
@@ -691,7 +759,10 @@
   };
 
   // Start: ?preset=mid from links in the shop, otherwise the visitor's last build
-  if (!applyPreset(new URLSearchParams(location.search).get('preset'))) loadSel();
+  if (RC_SHARED) {
+    loadSel(RC_SHARED);
+    notify('פתחתם הרכבה ששיתפו איתכם. אפשר לשנות כל רכיב, ולשלוח לנו לקבלת הצעת מחיר.');
+  } else if (!applyPreset(new URLSearchParams(location.search).get('preset'))) loadSel();
   render();
   // Opened from a category on the home page (build.html?open=cpu): show that category's picker right away
   const openKey = new URLSearchParams(location.search).get('open');

@@ -2388,3 +2388,11 @@ dialog.pc3d-big .desk-3d-side.pc3d-side { flex: 0 0 340px; padding: 16px; scroll
   color: var(--red); font-weight: 800; font-size: .93rem; cursor: pointer; }
 .sbox-all:hover { background: var(--red-tint); }
 html.a11y-contrast .sbox { border: 2px solid #fff !important; }
+
+/* PC builder: share the build (a link that opens the same parts, fans and lighting) */
+.cfg-share { display: flex; gap: 8px; margin-top: 10px; }
+.cfg-share .btn { flex: 1; justify-content: center; }
+.cfg-share .cfg-share-wa { flex: 0 0 48px; padding: 0; color: #1DA851; }
+.cfg-share .btn:disabled { opacity: .5; cursor: not-allowed; }
+.cfg-share-box { margin-top: 8px; display: grid; gap: 4px; }
+.cfg-share-box .input { font-size: .8rem; }
