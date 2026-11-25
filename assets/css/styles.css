@@ -2325,3 +2325,19 @@ dialog.pc3d-big .desk-3d-side.pc3d-side { flex: 0 0 340px; padding: 16px; scroll
 .search-chip:hover { border-color: var(--red); }
 .search-chip:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
 .search-chip[aria-pressed="true"] { border: 2px solid var(--red); background: var(--red-tint); color: var(--red); }
+
+/* phones (narrower than 420px): the header row (logo + 4 buttons) fits the screen, no sideways scroll */
+@media (max-width: 419.98px) {
+  .header-main { gap: 8px; padding-inline: 12px; }
+  .header-main > div:last-child { gap: 4px; }
+  .header-main > div:last-child > .order-btn,
+  .header-main > div:last-child > button { width: 40px; height: 40px; padding: 0; justify-content: center; }
+}
+@media (max-width: 359.98px) {
+  .header-main { padding-inline: 8px; }
+  .header-main .logo-block svg { width: 28px; height: 28px; } /* (very small phones: a smaller logo) */
+  .header-main .logo-block [class*="text-[1.35rem]"] { font-size: 1.1rem; }
+  .header-main > div:last-child { gap: 2px; }
+  .header-main > div:last-child > .order-btn,
+  .header-main > div:last-child > button { width: 38px; height: 38px; }
+}
