@@ -2319,3 +2319,9 @@ dialog.pc3d-big .desk-3d-side.pc3d-side { flex: 0 0 340px; padding: 16px; scroll
 .pc3d-fankind-head span { font-size: .78rem; font-weight: 800; }
 .pc3d-fankind .pc3d-fanpos { margin-bottom: 0; }
 .pc3d-fan-addhead { margin-top: 4px; font-weight: 800; color: var(--ink); }
+
+/* site search: category filter chips and the 404 page */
+.search-chip { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-weight: 600; font-size: .9rem; cursor: pointer; transition: border-color var(--dur-fast) ease; }
+.search-chip:hover { border-color: var(--red); }
+.search-chip:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.search-chip[aria-pressed="true"] { border: 2px solid var(--red); background: var(--red-tint); color: var(--red); }
