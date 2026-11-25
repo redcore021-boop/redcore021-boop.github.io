@@ -1,0 +1,70 @@
+// RedCore — product catalogue.
+// Edit names, specs, prices and images here; the product grid and the "מפרט מלא" dialog are rendered from this list.
+// status: "in" = במלאי, "hot" = הנמכר ביותר, "pre" = בהזמנה מראש
+window.RC_PRODUCTS = [
+  {
+    id: 'spark',
+    name: 'RedCore Spark',
+    tagline: 'גיימינג 1080p / 1440p',
+    price: 4890,
+    status: 'in',
+    image: 'assets/img/build-ice-blue.jpg',
+    alt: 'מחשב RedCore Spark במארז זכוכית עם תאורה כחולה',
+    specs: [
+      ['מעבד', 'AMD Ryzen 5 7600'],
+      ['כרטיס מסך', 'RTX 5060 8GB'],
+      ['זיכרון', '32GB DDR5'],
+      ['אחסון', '1TB NVMe'],
+    ],
+  },
+  {
+    id: 'blaze',
+    name: 'RedCore Blaze',
+    tagline: 'גיימינג 1440p בקצב גבוה',
+    price: 7990,
+    status: 'hot',
+    image: 'assets/img/build-white-5070.jpg',
+    alt: 'מחשב RedCore Blaze לבן עם כרטיס מסך RTX 5070',
+    specs: [
+      ['מעבד', 'AMD Ryzen 7 7800X3D'],
+      ['כרטיס מסך', 'RTX 5070 12GB'],
+      ['זיכרון', '32GB DDR5 6000'],
+      ['אחסון', '2TB NVMe Gen4'],
+    ],
+  },
+  {
+    id: 'inferno',
+    name: 'RedCore Inferno',
+    tagline: '1440p אולטרה / 4K',
+    price: 10490,
+    status: 'in',
+    image: 'assets/img/build-red.jpg',
+    alt: 'מחשב RedCore Inferno לבן בתאורה אדומה',
+    specs: [
+      ['מעבד', 'AMD Ryzen 7 9800X3D'],
+      ['כרטיס מסך', 'Gigabyte RTX 5070 Ti AERO 16GB (לבן)'],
+      ['לוח אם', 'MSI B850-S WiFi 6E + Bluetooth'],
+      ['זיכרון', '32GB (2x16GB) DDR5 6000MHz'],
+      ['אחסון', 'Corsair 2TB Gen5 NVMe · 12,400MB/s'],
+      ['קירור', 'קירור מים 360mm לבן'],
+      ['ספק כוח', 'Antec GSK 850W Gold'],
+      ['מארז', 'Dynamic Mini V2 לבן'],
+      ['רישיון', 'Windows 11 Pro'],
+    ],
+  },
+  {
+    id: 'corex',
+    name: 'RedCore Core X',
+    tagline: '4K, סטרימינג ועבודה כבדה',
+    price: 19900,
+    status: 'pre',
+    image: 'assets/img/build-rgb-white.jpg',
+    alt: 'מחשב RedCore Core X עם מאווררי RGB',
+    specs: [
+      ['מעבד', 'AMD Ryzen 9 9950X3D'],
+      ['כרטיס מסך', 'RTX 5090 32GB'],
+      ['זיכרון', '64GB DDR5 6000'],
+      ['אחסון', '4TB NVMe Gen5'],
+    ],
+  },
+];

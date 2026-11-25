@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" role="img" aria-label="RedCore">
+  <!-- Mark: a processor die with a glowing red core -->
+  <g fill="none" stroke="#F4F4F5" stroke-width="2.2" stroke-linecap="round">
+    <rect x="8" y="8" width="32" height="32" rx="6"/>
+    <path d="M17 4v4M24 4v4M31 4v4M17 40v4M24 40v4M31 40v4M4 17h4M4 24h4M4 31h4M40 17h4M40 24h4M40 31h4"/>
+  </g>
+  <path d="M24 14l10 10-10 10-10-10z" fill="#E5132B"/>
+  <path d="M24 19.5l4.5 4.5-4.5 4.5-4.5-4.5z" fill="#FF8A95"/>
+  <text x="56" y="33" font-family="Rubik, Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="1">
+    <tspan fill="#E5132B">RED</tspan><tspan fill="#F4F4F5">CORE</tspan>
+  </text>
+</svg>

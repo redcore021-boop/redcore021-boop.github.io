@@ -1,0 +1,293 @@
+{
+ "bq-lb600": {
+  "model": "assets/models/pc/products/bq-lb600.glb",
+  "materials": {
+   "lb_mesh": {
+    "color": "#D2D4D7",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   }
+  }
+ },
+ "bq-lb600lx": {
+  "model": "assets/models/pc/products/bq-lb600lx.glb",
+  "materials": {
+   "lb_mesh": {
+    "color": "#D2D4D7",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   }
+  }
+ },
+ "msi-forge-100r": {
+  "model": "assets/models/pc/products/msi-forge-100r.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30,
+    "opacity": 0.9
+   },
+   "pc_glass": {
+    "color": "#7C8187"
+   }
+  }
+ },
+ "asus-gt502": {
+  "model": "assets/models/pc/products/asus-gt502.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "pc_glass": {
+    "color": "#C3C9CE"
+   }
+  }
+ },
+ "asus-a21": {
+  "model": "assets/models/pc/products/asus-a21.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "pc_glass": {
+    "color": "#B9BFC5"
+   }
+  }
+ },
+ "gb-c102g": {
+  "model": "assets/models/pc/products/gb-c102g.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "pc_glass": {
+    "color": "#8E949A"
+   }
+  }
+ },
+ "bq-500dx": {
+  "model": "assets/models/pc/products/bq-500dx.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "pc_glass": {
+    "color": "#A5ABB1"
+   }
+  }
+ },
+ "bq-sb800dx": {
+  "model": "assets/models/pc/products/bq-sb800dx.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "pc_glass": {
+    "color": "#A5ABB1"
+   }
+  }
+ },
+ "a3-matx": {
+  "model": "assets/models/pc/products/a3-matx.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30,
+    "opacity": 0.55
+   },
+   "pc_glass": {
+    "color": "#D2D8DD"
+   }
+  }
+ },
+ "4000d": {
+  "model": "assets/models/pc/products/4000d.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "pc_glass": {
+    "color": "#A5ABB1"
+   }
+  }
+ },
+ "o11-evo": {
+  "model": "assets/models/pc/products/o11-evo.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "pc_glass": {
+    "color": "#C3C9CE"
+   }
+  }
+ },
+ "north": {
+  "model": "assets/models/pc/products/north.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_wood": {
+    "color": "#5C3A24",
+    "finish": "satin",
+    "texture": "wood",
+    "textureScale": 1
+   },
+   "pc_glass": {
+    "color": "#6E7378"
+   }
+  }
+ },
+ "lancool-216": {
+  "model": "assets/models/pc/products/lancool-216.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30,
+    "opacity": 0.55
+   },
+   "pc_glass": {
+    "color": "#A5ABB1"
+   }
+  }
+ },
+ "hyte-y60": {
+  "model": "assets/models/pc/products/hyte-y60.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "pc_glass": {
+    "color": "#C3C9CE"
+   }
+  }
+ },
+ "o11-vision": {
+  "model": "assets/models/pc/products/o11-vision.glb",
+  "materials": {
+   "cs_mesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "cs_fmesh": {
+    "color": "#0D0E10",
+    "finish": "matte",
+    "texture": "mesh",
+    "textureScale": 30
+   },
+   "pc_glass": {
+    "color": "#C3C9CE"
+   }
+  }
+ }
+}
