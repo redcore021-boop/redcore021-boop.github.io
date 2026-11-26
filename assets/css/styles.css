@@ -2401,3 +2401,8 @@ html.a11y-contrast .sbox { border: 2px solid #fff !important; }
 .st-slider { touch-action: pan-y; }
 .st-track.is-dragging { transition: none; }
 .st-slider img { -webkit-user-drag: none; user-select: none; }
+
+/* Sold out: a grey badge, a softer picture, and the "tell me when it's back" note */
+.product-card .stock-badge.status-out, .product-page-media .stock-badge.status-out { background: #ECEEF1; color: #4A5260; }
+.product-card:has(.status-out) .product-media img { opacity: .72; filter: grayscale(.35); }
+.out-note { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: #F4F6F8; color: #3A4250; font-size: .9rem; line-height: 1.55; }
