@@ -2396,3 +2396,8 @@ html.a11y-contrast .sbox { border: 2px solid #fff !important; }
 .cfg-share .btn:disabled { opacity: .5; cursor: not-allowed; }
 .cfg-share-box { margin-top: 8px; display: grid; gap: 4px; }
 .cfg-share-box .input { font-size: .8rem; }
+
+/* main banner: swipe on phones (the track follows the finger; vertical moves scroll the page) */
+.st-slider { touch-action: pan-y; }
+.st-track.is-dragging { transition: none; }
+.st-slider img { -webkit-user-drag: none; user-select: none; }
