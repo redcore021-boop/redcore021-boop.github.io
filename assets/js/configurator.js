@@ -14,6 +14,11 @@ window.RCShareCode = {
   },
 };
 const RC_SHARED = (() => { const c = new URLSearchParams(location.search).get('b'); return c ? window.RCShareCode.decode(c) : null; })();
+if (RC_SHARED && !new URLSearchParams(location.search).has('edit')) {
+  // (the builder may be inside the site's frame: the whole window goes to the spec page)
+  const to = `/shared-build?b=${encodeURIComponent(new URLSearchParams(location.search).get('b'))}`;
+  try { (window.top || window).location.replace(to); } catch { location.replace(to); }
+}
 if (RC_SHARED) {
   try {
     if (/^#[0-9a-f]{6}$/i.test(RC_SHARED.rgb || '')) localStorage.setItem('rc-pc3d-rgb', RC_SHARED.rgb);
@@ -341,7 +346,7 @@ if (RC_SHARED) {
     let light = {};
     try { light = { rgb: localStorage.getItem('rc-pc3d-rgb') || undefined, mode: localStorage.getItem('rc-pc3d-mode') || undefined }; } catch { /* none */ }
     const base = (window.top !== window && (() => { try { return window.top.location.origin; } catch { return ''; } })()) || location.origin;
-    return `${base}/build?b=${window.RCShareCode.encode({ v: 1, ...state(), ...light })}`;
+    return `${base}/shared-build?b=${window.RCShareCode.encode({ v: 1, ...state(), ...light })}`;
   };
   // after "copied": the button says so for a moment
   const flash = (btn, text) => {
@@ -351,9 +356,14 @@ if (RC_SHARED) {
     clearTimeout(btn._t); btn._t = setTimeout(() => { label.textContent = was; }, 2200);
   };
   const copyLink = async (btn, url) => {
-    try { await navigator.clipboard.writeText(url); flash(btn, 'הקישור הועתק'); return; } catch { /* no clipboard: show it to copy by hand */ }
+    try { await navigator.clipboard.writeText(url); flash(btn, 'הקישור הועתק'); return; } catch { /* blocked (e.g. inside the site's frame): the older way below */ }
     const box = root.querySelector('[data-share-box]');
-    if (box) { box.hidden = false; const inp = box.querySelector('input'); inp.value = url; inp.focus(); inp.select(); }
+    const inp = box?.querySelector('input');
+    if (inp) {
+      box.hidden = false; inp.value = url; inp.focus(); inp.select();
+      let copied = false; try { copied = document.execCommand('copy'); } catch { /* not allowed: copy by hand from the box */ }
+      flash(btn, copied ? 'הקישור הועתק' : 'העתיקו את הקישור מהתיבה');
+    }
   };
 
   // ---------- Rendering ----------
@@ -709,7 +719,8 @@ if (RC_SHARED) {
       const total = root.querySelector('.cfg-total strong')?.textContent || '';
       // phones: the system share sheet (WhatsApp, Messages…); computers: copy the link
       if (navigator.share && matchMedia('(pointer: coarse)').matches) {
-        navigator.share({ title: 'המחשב שבניתי ב-RedCore', text: `המחשב שבניתי ב-RedCore (${total}):`, url }).catch(() => {});
+        navigator.share({ title: 'המחשב שבניתי ב-RedCore', text: `המחשב שבניתי ב-RedCore (${total}):`, url })
+          .catch((err) => { if (err?.name !== 'AbortError') copyLink(shareBtn, url); }); // (closed by the visitor: nothing; not allowed: copy instead)
       } else copyLink(shareBtn, url);
       return;
     }
